@@ -1,4 +1,4 @@
-# Three.js skylight & shadows example
+# Three.js spotlight & shadows example
 
 https://three-light.vercel.app
 

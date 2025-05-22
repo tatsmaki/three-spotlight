@@ -1,26 +1,21 @@
-import { Euler } from "three";
-import { camera } from "../global/camera";
+import { Vector3 } from "three";
 
-class PointerController {
-  euler = new Euler(0, 0, 0, "YXZ");
+class PointerControl {
   isActive = false;
+  private x = 0;
+  private y = 0;
 
   constructor() {
-    document.onpointerdown = () => {
+    document.onpointerdown = (event: MouseEvent) => {
       this.isActive = true;
+      this.x = event.clientX;
+      this.y = event.clientY;
     };
 
-    document.onpointermove = (event) => {
+    document.onpointermove = (event: MouseEvent) => {
       if (this.isActive) {
-        const { movementX, movementY } = event;
-
-        this.euler.setFromQuaternion(camera.quaternion);
-        this.euler.y -= movementX * 0.004;
-        this.euler.x -= movementY * 0.004;
-        this.euler.x = Math.max(
-          -Math.PI / 2,
-          Math.min(Math.PI / 2, this.euler.x)
-        );
+        this.x = event.clientX;
+        this.y = event.clientY;
       }
     };
 
@@ -28,6 +23,13 @@ class PointerController {
       this.isActive = false;
     };
   }
+
+  get projection() {
+    const dx = (this.x / window.innerWidth) * 2 - 1;
+    const dy = (this.y / window.innerHeight) * -2 + 1;
+
+    return new Vector3(dx, 0, dy);
+  }
 }
 
-export const pointerController = new PointerController();
+export const pointerControl = new PointerControl();

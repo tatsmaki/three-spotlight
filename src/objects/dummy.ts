@@ -1,27 +1,53 @@
-import { Group, Mesh, MeshStandardMaterial, SphereGeometry } from "three";
+import { BoxGeometry, Group, Mesh, MeshStandardMaterial } from "three";
 
 export const dummyGroup = new Group();
 
-const createDummy = () => {
-  const dummyGeo = new SphereGeometry(0.5);
-  const dummyMat = new MeshStandardMaterial({
-    color: 0x00ff00,
+const createWall = () => {
+  const wallGeo = new BoxGeometry(5, 5, 0.2);
+  const wallMat = new MeshStandardMaterial({
+    color: 0xffffff,
   });
-  const dummy = new Mesh(dummyGeo, dummyMat);
+  const wall = new Mesh(wallGeo, wallMat);
 
-  dummy.castShadow = true;
-  dummy.receiveShadow = true;
+  wall.castShadow = true;
+  wall.receiveShadow = true;
 
-  return dummy;
+  return wall;
 };
 
-for (let i = 0; i < 100; i++) {
-  const dummy = createDummy();
-  const x = Math.random() * 100 - 50;
-  const y = 0.5;
-  const z = Math.random() * 100 - 50;
+// Create a 10x10 labyrinth
+const size = 10;
+const cellSize = 5;
 
-  dummy.position.set(x, y, z);
+// Create vertical walls
+for (let x = 0; x < size; x++) {
+  for (let z = 0; z < size + 1; z++) {
+    // Skip some walls randomly to create paths
+    if (Math.random() > 0.3) {
+      const wall = createWall();
+      wall.position.set(
+        x * cellSize - (size * cellSize) / 2,
+        1.5,
+        z * cellSize - (size * cellSize) / 2
+      );
+      dummyGroup.add(wall);
+    }
+  }
+}
 
-  dummyGroup.add(dummy);
+// Create horizontal walls
+for (let x = 0; x < size + 1; x++) {
+  for (let z = 0; z < size; z++) {
+    // Skip some walls randomly to create paths
+    if (Math.random() > 0.3) {
+      const wall = createWall();
+      wall.rotation.y = Math.PI / 2;
+      wall.position.set(
+        x * cellSize - (size * cellSize) / 2,
+        1.5,
+        z * cellSize - (size * cellSize) / 2
+      );
+      dummyGroup.add(wall);
+    }
+  }
 }

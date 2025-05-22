@@ -1,3 +1,3 @@
 import { AmbientLight } from "three";
 
-export const ambientLight = new AmbientLight(0xffffff, 0.2);
+export const ambientLight = new AmbientLight(0xffffff, 0.05);

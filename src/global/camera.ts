@@ -1,8 +1,7 @@
-import { Euler, PerspectiveCamera } from "three";
+import { PerspectiveCamera } from "three";
 import { keyboardController } from "../controls/keyboard";
-import { pointerController } from "../controls/pointer";
 
-const height = 2;
+const height = 15;
 
 export const camera = new PerspectiveCamera(
   75,
@@ -11,17 +10,11 @@ export const camera = new PerspectiveCamera(
   1000
 );
 
-camera.position.set(0, height, 0);
+camera.position.set(2, height, 2);
+camera.lookAt(2, 0, 2);
 
 export const renderCamera = () => {
-  camera.quaternion.setFromEuler(pointerController.euler);
   const direction = keyboardController.direction.normalize();
 
-  const euler = new Euler();
-
-  euler.setFromQuaternion(camera.quaternion, "YXZ");
-  euler.x = 0;
-
-  direction.applyEuler(euler);
   camera.position.addScaledVector(direction, 0.1);
 };
