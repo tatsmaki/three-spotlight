@@ -1,5 +1,6 @@
 # Three.js spotlight & shadows example
 
-https://three-light.vercel.app
+https://three-spotlight.vercel.app
 
-[<img width="1403" alt="Screenshot 2025-05-15 at 21 55 24" src="https://github.com/user-attachments/assets/3c09d623-c7a1-49de-846b-bc2e8634b5c3" />](https://three-light.vercel.app)
+[<img width="1354" alt="Screenshot 2025-05-22 at 13 48 51" src="https://github.com/user-attachments/assets/6b139604-e88d-4506-ae48-eb9fe38462b9" />](https://three-spotlight.vercel.app)
+
